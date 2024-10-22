@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> FileLinker tool</title>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js" integrity="sha384-qlmct0AOBiA2VPZkMY3+2WqkHtIQ9lSdAsAn5RUJD/3vA5MKDgSGcdmIv4ycVxyn" crossorigin="anonymous"></script>
+<!--<script src="/static/js/jquery.form.js"></script>-->
+</head>
+    <body>
+        <div class="container">
+            <br />
+            <!-- <h3 align="center"> File Uploader Tool</h3> -->
+            <br />
+            <div class="panel panel-success" align="center" >
+                <div class="panel-heading"><b> FileLinker Tool</b></div>
+                <div class="panel-body">
+                    <form id="uploadImage" action="/upload" method="post">
+                        <div class="form-group">
+                            <h3><span class="label label-info">Select a file to upload</span></h3>
+                            <h4><span class="label label-warning">The file size must be less than 200MB !!!</span></h4>
+                            <h4><span class="label label-warning">The file name must not be in Persian !!!</span></h4>
+                            <br>
+                            <input type="file" name="uploadFile" id="uploadFile" accept=".webm, .mp4, .wmv, .mov, .avi, .mpeg, .mp3, .pdf, .m4a, .jpg, .jpeg, .png, .rar, .zip, .doc, .docx, .xls, .xlsx" />
+                        </div>
+                        <div class="form-group">
+                            <br>
+                            <br>
+                            <input type="submit" id="uploadSubmit" value="Upload" class="btn btn-primary btn-lg" />
+                        </div>
+                        <div id="targetLayer" style="display:none;"></div>
+                    </form>
+                    <div id="loader-icon" style="display:none;"> <img src="static/loading.gif" /></div>
+                </div>
+            </div>
+        </div>
+<script>
+$(document).ready(function(){
+    $('#uploadImage').submit(function(event){
+        if($('#uploadFile').val()){
+            event.preventDefault();
+            $('#loader-icon').show();
+            $('#targetLayer').hide();
+            $(this).ajaxSubmit({
+                target: '#targetLayer',
+                beforeSubmit:function(){
+                    $('.progress-bar').width('0%');
+                },
+                success:function(data){
+                    $('#loader-icon').hide();
+                    $('#targetLayer').show();
+                    $('#targetLayer').append(data.htmlresponse);
+                },
+                resetForm: true
+            });
+        }
+        return false;
+    });
+});
+</script>
+</body>
+</html>
