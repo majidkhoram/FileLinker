@@ -1,3 +1,5 @@
+# Not competed yet
+
 ### This is a python3 project, letting you upload files to your server and get a direct link to download it.
 
 
