@@ -1,6 +1,7 @@
 FROM ubuntu:22.04 AS builder
 WORKDIR /app
 COPY . /srv/
+
 RUN apt update && \
     apt install --yes --no-install-suggests --no-install-recommends curl nginx python3-pip python3-venv gcc libpython3-dev && \
     python3 -m venv /app && \
